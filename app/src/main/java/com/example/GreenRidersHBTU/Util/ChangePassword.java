@@ -2,12 +2,16 @@ package com.example.GreenRidersHBTU.Util;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.GreenRidersHBTU.Admin.AdminHome;
 import com.example.GreenRidersHBTU.MainActivity;
 import com.example.GreenRidersHBTU.Model.BaseUrl;
 import com.example.GreenRidersHBTU.R;
@@ -71,9 +75,17 @@ public class ChangePassword extends AppCompatActivity {
                     public void onResponse(Call<Void> call, Response<Void> response) {
 
                         if (response.code() == 200) {
+                            startActivity(new Intent(ChangePassword.this, MainActivity.class));
+                            SharedPreferences preferences =getSharedPreferences("login", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.clear();
+                            editor.apply();
+
                             Toast.makeText(ChangePassword.this, "Password Changed  Successfully",
                                     Toast.LENGTH_LONG).show();
-                                changePasswordET.setText("");
+                            changePasswordET.setText("");
+                            finishAffinity();
+                            finish();
                         } else if (response.code() == 404) {
                             Toast.makeText(ChangePassword.this, "Wrong Credentials",
                                     Toast.LENGTH_LONG).show();

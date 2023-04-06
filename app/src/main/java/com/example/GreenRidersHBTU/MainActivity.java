@@ -3,6 +3,7 @@ package com.example.GreenRidersHBTU;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -120,6 +121,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                  }else{
                      passwordET.setTransformationMethod(PasswordTransformationMethod.getInstance());
                  }
+             }
+         });
+         findViewById(R.id.screen).setOnClickListener(new View.OnClickListener(){
+             @Override
+             public void onClick(View view) {
+                 hideSoftKeyboard(MainActivity.this);
              }
          });
         if(sharedPreferences.contains(Email))
@@ -587,5 +594,15 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 //        queue.add(request);
     }
 
-
+    public static void hideSoftKeyboard(Activity activity) {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) activity.getSystemService(
+                        Activity.INPUT_METHOD_SERVICE);
+        if(inputMethodManager.isAcceptingText()){
+            inputMethodManager.hideSoftInputFromWindow(
+                    activity.getCurrentFocus().getWindowToken(),
+                    0
+            );
+        }
+    }
 }
