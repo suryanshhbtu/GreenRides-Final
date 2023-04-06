@@ -8,11 +8,14 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.GreenRidersHBTU.Model.BaseUrl;
+import com.example.GreenRidersHBTU.Model.CustomRealTimeCycleAdapter;
+import com.example.GreenRidersHBTU.Model.StudentRealTime;
 import com.example.GreenRidersHBTU.R;
 import com.example.GreenRidersHBTU.RetrofitApiCalls.RetrofitInterface;
 import com.example.GreenRidersHBTU.MainActivity;
 import com.example.GreenRidersHBTU.Model.Cycle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -29,12 +32,6 @@ public class ShowRealtimeCycles extends AppCompatActivity {
     private String BASE_URL = baseUrl.getBaseUrl();
     String _id;
     ListView l;
-    String tutorials[]
-            = { "Algorithms", "Data Structures",
-            "Languages", "Interview Corner",
-            "GATE", "ISRO CS",
-            "UGC NET CS", "CS Subjects",
-            "Web Technologies" };
 
 
     @Override
@@ -77,13 +74,23 @@ public class ShowRealtimeCycles extends AppCompatActivity {
                             Toast.LENGTH_LONG).show();
                    List<Cycle> result = response.body();
                     String cycles[] = new String[result.size()];
+                    String realTimeStd[] = new String[result.size()];
+                    ArrayList<StudentRealTime> stdList = new ArrayList<>();
+
                     for(int i = 0;i<result.size();i++){
+                        stdList.add(new StudentRealTime("Suryansh", "Electronics", "XXX@hbtu.ac.in","XXX",result.get(i).getCycleid()));
                        cycles[i] = result.get(i).getCycleid();
                    }
+                    CustomRealTimeCycleAdapter customRealTimeCycleAdapter =  new CustomRealTimeCycleAdapter(getApplicationContext(), stdList);
+                    l.setAdapter(customRealTimeCycleAdapter);
                     ArrayAdapter<String> arr;
-                    arr= new ArrayAdapter<String>(ShowRealtimeCycles.this,R.layout.support_simple_spinner_dropdown_item,
-                            cycles);
-                    l.setAdapter(arr);
+
+//                    arr= new ArrayAdapter<String>(ShowRealtimeCycles.this,R.layout.support_simple_spinner_dropdown_item,
+//                            cycles);
+//                    l.setAdapter(arr);
+
+
+
 //                    WordAdapter family=new WordAdapter(ShowRealtimeCycles.this,result);
 //                    ListView listView=(ListView)findViewById(R.id.list);
 //                    listView.setAdapter(family);

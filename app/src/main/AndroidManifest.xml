@@ -13,9 +13,6 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".CustomRealCycle"
-            android:exported="false" />
-        <activity
             android:name=".SignUpUser"
             android:exported="false" />
         <activity
