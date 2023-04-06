@@ -129,6 +129,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                  hideSoftKeyboard(MainActivity.this);
              }
          });
+
         if(sharedPreferences.contains(Email))
         {
             ProgressDialog dialog=new ProgressDialog(this);
@@ -271,10 +272,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 //                                @Override
 //                                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
 //                                    if(!b){
-                                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                                        editor.putString(Email, emailData);
-                                        editor.putString(Password, passwordData);
-                                        editor.commit();
+                            CheckBox rememberMe = (CheckBox) findViewById(R.id.rememberMe);
+                            if(rememberMe.isChecked()) {
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString(Email, emailData);
+                                editor.putString(Password, passwordData);
+                                editor.commit();
+                            }
 //                                    }
 //                                }
 //                            });

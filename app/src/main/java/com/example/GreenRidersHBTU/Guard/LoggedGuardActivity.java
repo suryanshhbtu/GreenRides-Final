@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -307,14 +308,13 @@ public class LoggedGuardActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.mailIt:
-                  Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setType("text/html");
-                intent.putExtra(Intent.EXTRA_EMAIL, "toBeAdded.hbtu.ac.in");
-                intent.putExtra(Intent.EXTRA_SUBJECT, "Write Subject Here");
-                intent.putExtra(Intent.EXTRA_TEXT, "Write Your Feedback Here");
 
-                startActivity(Intent.createChooser(intent, "Send Email"));
                 Toast.makeText(this,"Generating Mail",Toast.LENGTH_SHORT).show();
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                        "mailto","admincycleapp1@hbtu.ac.in", null));
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "FeedBack");
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "Body");
+                startActivity(Intent.createChooser(emailIntent, "Send email..."));
                 return true;
             case R.id.logout:
                 MainActivity.AUTH_TOKEN = "";

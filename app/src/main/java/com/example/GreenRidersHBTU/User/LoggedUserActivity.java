@@ -2,7 +2,9 @@ package com.example.GreenRidersHBTU.User;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ShareCompat;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -310,19 +312,12 @@ public class LoggedUserActivity extends AppCompatActivity {
             case R.id.mailIt:
 
                 Toast.makeText(this,"Generating Mail",Toast.LENGTH_SHORT).show();
-                Uri uri = Uri.parse("mailto:toBeAdded.hbtu.ac.in")
-                        .buildUpon()
-                        .appendQueryParameter("subject", "Write Subject Here")
-                        .appendQueryParameter("body", "Write Your Feedback Here")
-                        .build();
-
-                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, uri);
-                startActivity(Intent.createChooser(emailIntent, "Send feedback"));
-//                Intent intent = new Intent(Intent.ACTION_SEND);
-//                intent.setType("text/html");
-//                intent.putExtra(Intent.EXTRA_EMAIL, "suryanshkayastha@gmail.com");
-//                intent.putExtra(Intent.EXTRA_TEXT, "Write Your Feedback Here");
-
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                        "mailto","admincycleapp1@hbtu.ac.in", null));
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "FeedBack");
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "Body");
+                startActivity(Intent.createChooser(emailIntent, "Send email..."));
+                Toast.makeText(this,"Generating Mail",Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.logout:
                 MainActivity.AUTH_TOKEN = "";
