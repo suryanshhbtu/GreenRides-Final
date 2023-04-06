@@ -218,6 +218,9 @@ public class LoggedGuardActivity extends AppCompatActivity {
         HashMap<String, String> map = new HashMap<>();
         // preparing for post
         map.put("cycleid", "");
+        map.put("stdid", "");
+        map.put("stdname", "");
+        map.put("email", "");
 //        // post request
         Call<Void> call = retrofitInterface.removeRented("Bearer "+ MainActivity.AUTH_TOKEN,stdid, map);
         // execute http request
@@ -255,6 +258,8 @@ public class LoggedGuardActivity extends AppCompatActivity {
         // preparing for post
         map.put("status", "");
         map.put("stdid", "");
+        map.put("stdname", "");
+        map.put("email", "");
 //        // post request
         Call<Void> call = retrofitInterface.setRentedUser("Bearer "+MainActivity.AUTH_TOKEN,cycleid,map);
         // execute http request

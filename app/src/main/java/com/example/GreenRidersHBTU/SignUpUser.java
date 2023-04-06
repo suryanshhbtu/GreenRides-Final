@@ -1,6 +1,7 @@
 package com.example.GreenRidersHBTU;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.GreenRidersHBTU.Model.BaseUrl;
 import com.example.GreenRidersHBTU.RetrofitApiCalls.RetrofitInterface;
+import com.example.GreenRidersHBTU.User.LoggedUserActivity;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -84,12 +86,14 @@ public class SignUpUser extends AppCompatActivity implements GoogleApiClient.OnC
     private void handleSignInResult(GoogleSignInResult result){
         if(result.isSuccess()){
             GoogleSignInAccount account=result.getSignInAccount();
-//            if(!account.getEmail().contains("@hbtu.ac.in")){
-//
-//                Toast.makeText(SignUpUser.this, "Please Select A vaild HBTU Mail",
-//                        Toast.LENGTH_LONG).show();
-//                gotoMainActivity();
-//            }
+            if(account == null || !account.getEmail().contains("@hbtu.ac.in")){
+                AlertDialog.Builder builder = new AlertDialog.Builder(SignUpUser.this);
+                builder.setTitle("ALERT");
+                builder.setMessage("You Tried Login Using Non-HBTU Email \n 1) Uninstall the app \n 2) Re-install It" +
+                        "\n 3) Make sure that use HBTU-email to SignUp");
+                builder.setCancelable(false);
+                builder.show();
+            }else{
             final TextView nameSignUpTV = (TextView) findViewById(R.id.nameSignUpTV);
             final TextView branchSignUpTV = (TextView) findViewById(R.id.branchSignUpTV);
             final TextView rollnoSignUpTV = (TextView) findViewById(R.id.rollNoSignUpTV);
@@ -150,14 +154,15 @@ public class SignUpUser extends AppCompatActivity implements GoogleApiClient.OnC
             branchSignUpTV.setText(branch);
 
             addUserHandler();
-        }
+        }}
     }
 
     private void gotoMainActivity(){
         Toast.makeText(SignUpUser.this, "Please Select A vaild",
                 Toast.LENGTH_LONG).show();
         Intent intent=new Intent(this,MainActivity.class);
-        startActivity(intent);
+        intent.putExtra("valid", "false");
+        this.startActivity(intent);
     }
 
     private void addUserHandler() {

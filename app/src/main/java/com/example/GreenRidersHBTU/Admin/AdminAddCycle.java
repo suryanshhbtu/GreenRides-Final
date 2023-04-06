@@ -96,6 +96,7 @@ public class AdminAddCycle extends AppCompatActivity {
                 map.put("cycleid", qrTV.getText().toString());
                 map.put("status", "");
                 map.put("stdid", "");
+                map.put("email", "");
                 // post request
                 Call<Void> call = retrofitInterface.executeCycleSignup("Bearer "+ MainActivity.AUTH_TOKEN,map);
                 // execute http request

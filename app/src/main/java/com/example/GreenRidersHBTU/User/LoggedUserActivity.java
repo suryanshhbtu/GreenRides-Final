@@ -46,7 +46,7 @@ public class LoggedUserActivity extends AppCompatActivity {
     String _id;
     TextView scanbtn, rentbtn;
     LinearLayout scanLL , rentLL;
-
+    String name, email;
     public static TextView cycleidTV;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,10 +65,10 @@ public class LoggedUserActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         _id = intent.getStringExtra("_id");
-        String name = intent.getStringExtra("name");
+        name = intent.getStringExtra("name");
         String rollno = intent.getStringExtra("rollno");
         String branch = intent.getStringExtra("branch");
-        String email = intent.getStringExtra("email");
+        email = intent.getStringExtra("email");
         String cycleid = intent.getStringExtra("cycleid");
 
         TextView nameTV = (TextView) findViewById(R.id.nameTV);
@@ -217,6 +217,7 @@ public class LoggedUserActivity extends AppCompatActivity {
         });
     }
 
+    // setting cycleid to student object
     private void setRentedHandler(String cycleid) {
 
 //        Toast.makeText(LoggedUserActivity.this, "Renting Cycle ...",
@@ -253,6 +254,7 @@ public class LoggedUserActivity extends AppCompatActivity {
 
     }
 
+    // setting cycleid, rented-status, name, email to cycle object
     private void setRentedUserHandler(String cycleid) {
 
 //        Toast.makeText(LoggedUserActivity.this, "inside setRentedCycle",
@@ -261,6 +263,9 @@ public class LoggedUserActivity extends AppCompatActivity {
         // preparing for post
         map.put("status", "rented");
         map.put("stdid", _id);
+        map.put("stdname", name);
+        map.put("email", email);
+
 //        // post request
         Call<Void> call = retrofitInterface.setRentedUser("Bearer "+MainActivity.AUTH_TOKEN,cycleid,map);
         // execute http request

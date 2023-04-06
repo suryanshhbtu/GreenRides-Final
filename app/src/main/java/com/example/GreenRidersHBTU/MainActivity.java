@@ -9,11 +9,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -48,6 +51,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -78,8 +82,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
     // 1-DEC need to be changed
     Button btnverifyCaptcha;
-    String SITE_KEY = "6Lfs30cjAAAAAJ7iE_ykAiAiDL7Wc4Yt9hIxySA0";
-    String SECRET_KEY = "6Lfs30cjAAAAACfm1ceeuRQf1WAIm8_30drsiutN";
+    String SITE_KEY = "6LcCCmUlAAAAAOGj6QMAhXIavG9EiuMfVEYqcLG2"; //6Lfs30cjAAAAAJ7iE_ykAiAiDL7Wc4Yt9hIxySA0";
+    String SECRET_KEY = "6LcCCmUlAAAAAMdU1WVixa1SZmx4esDA7kDV9oec";//"6Lfs30cjAAAAACfm1ceeuRQf1WAIm8_30drsiutN";
     RequestQueue queue;
 
 
@@ -95,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL) // above defined
                 .addConverterFactory(GsonConverterFactory.create()) // json -> javaObject
@@ -104,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
         sharedPreferences = getSharedPreferences(fileName, Context.MODE_PRIVATE);
 
-        final TextView signUp = findViewById(R.id.signup);
+//        final TextView signUp = findViewById(R.id.signup);
         final CheckBox showPassword = findViewById(R.id.showPassword);
         final EditText passwordET = findViewById(R.id.passwordEditText);
          showPassword.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -208,6 +213,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private void handleSignInResult(GoogleSignInResult result){
         if(result.isSuccess()){
             gotoProfile();
+            gotoProfile();
         }else{
             Toast.makeText(getApplicationContext(),"Sign in cancel",Toast.LENGTH_LONG).show();
         }
@@ -223,7 +229,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private void handleLoginDialog() {
         final EditText emailEdit = (EditText) findViewById(R.id.emailEditText);
         final EditText passwordEdit = (EditText) findViewById(R.id.passwordEditText);
-
+//        passwordEdit.setImeActionLabel("Custom text", KeyEvent.KEYCODE_ENTER);
                 if(emailEdit.getText().toString().isEmpty() || passwordEdit.getText().toString().isEmpty()){
 
                     Toast.makeText(MainActivity.this, "Please Enter All Fields.",
@@ -517,6 +523,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                             // reCAPTCHA siteverify API.
                             Intent intent=new Intent(MainActivity.this,SignUpUser.class);
                             startActivity(intent);
+
 //                            Toast.makeText(MainActivity.this, "Verified That You Are Not A Robot", Toast.LENGTH_SHORT).show();
                             Log.e("TAG", "VALIDATION STEP NEEDED");
                         }else {

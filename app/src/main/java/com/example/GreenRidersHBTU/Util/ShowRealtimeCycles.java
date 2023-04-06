@@ -78,7 +78,7 @@ public class ShowRealtimeCycles extends AppCompatActivity {
                     ArrayList<StudentRealTime> stdList = new ArrayList<>();
 
                     for(int i = 0;i<result.size();i++){
-                        stdList.add(new StudentRealTime("Suryansh", "Electronics", "XXX@hbtu.ac.in","XXX",result.get(i).getCycleid()));
+                        stdList.add(new StudentRealTime(result.get(i).getStdname(), result.get(i).getBranchName(), result.get(i).getEmail(),result.get(i).getRollNo(),result.get(i).getCycleid()));
                        cycles[i] = result.get(i).getCycleid();
                    }
                     CustomRealTimeCycleAdapter customRealTimeCycleAdapter =  new CustomRealTimeCycleAdapter(getApplicationContext(), stdList);
