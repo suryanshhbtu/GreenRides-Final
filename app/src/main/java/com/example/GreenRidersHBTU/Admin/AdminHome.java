@@ -73,7 +73,15 @@ public class AdminHome extends AppCompatActivity {
         findViewById(R.id.realtime_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                startActivity(new Intent(AdminHome.this, ShowRealtimeCycles.class));
                 startActivity(new Intent(AdminHome.this, ShowRealtimeCycles.class));
+            }
+        });
+        findViewById(R.id.delete_Yearwise_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                startActivity(new Intent(AdminHome.this, ShowRealtimeCycles.class));
+                startActivity(new Intent(AdminHome.this, AdminDeleteYearWise.class));
             }
         });
 
@@ -104,6 +112,7 @@ public class AdminHome extends AppCompatActivity {
                 emailIntent.putExtra(Intent.EXTRA_SUBJECT, "FeedBack");
                 emailIntent.putExtra(Intent.EXTRA_TEXT, "Body");
                 startActivity(Intent.createChooser(emailIntent, "Send email..."));
+
                 return true;
             case R.id.logout:
                 MainActivity.AUTH_TOKEN = "";

@@ -57,7 +57,7 @@ public class AdminDeleteCycle extends AppCompatActivity {
                 .build();
 
         retrofitInterface = retrofit.create(RetrofitInterface.class); // instantinsing
-        addCycleHandler();
+        deleteCycleHandler();
 
     }
     // back button to close AdminHome
@@ -66,7 +66,7 @@ public class AdminDeleteCycle extends AppCompatActivity {
         finish(); // close this activity as oppose to navigating up
         return false;
     }
-    private void addCycleHandler() {
+    private void deleteCycleHandler() {
         LinearLayout addCycleLL = (LinearLayout) findViewById(R.id.addCycleLL);
         addCycleLL.setOnClickListener(new View.OnClickListener() {
             @Override

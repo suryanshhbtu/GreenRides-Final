@@ -11,13 +11,13 @@ import com.example.GreenRidersHBTU.R;
 
 import java.util.ArrayList;
 
-public class CustomRealTimeCycleAdapter extends BaseAdapter {
+public class CustomStudentAdapter extends BaseAdapter {
 
     Context context;
-    ArrayList<StudentRealTime> arr;
+    ArrayList<Student> arr;
     LayoutInflater inflater;
 
-    public CustomRealTimeCycleAdapter(Context ctx, ArrayList<StudentRealTime> arr) {
+    public CustomStudentAdapter(Context ctx, ArrayList<Student> arr) {
         this.context = ctx;
         this.arr = arr;
         this.inflater = LayoutInflater.from(ctx);
@@ -48,10 +48,10 @@ public class CustomRealTimeCycleAdapter extends BaseAdapter {
         TextView rollNoTV = (TextView)view.findViewById(R.id.rollNoTV);
         TextView cycleIdTV = (TextView)view.findViewById(R.id.cycleIdTV);
 
-        stdNameTV.setText(arr.get(i).stdName);
-        branchNameTV.setText(arr.get(i).stdBranch);
-        rollNoTV.setText(arr.get(i).stdRollNo);
-        cycleIdTV.setText(arr.get(i).stdCycleId);
+        stdNameTV.setText(arr.get(i).name);
+        branchNameTV.setText(arr.get(i).branch);
+        rollNoTV.setText(arr.get(i).rollno);
+        cycleIdTV.setText(arr.get(i).cycleid);
 
         return view;
     }

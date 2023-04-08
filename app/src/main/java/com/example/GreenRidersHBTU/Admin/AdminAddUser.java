@@ -69,8 +69,51 @@ public class AdminAddUser extends AppCompatActivity {
                 map.put("name", nameUserET.getText().toString());
                 map.put("password", passwordUserET.getText().toString());
                 map.put("email", emailUserET.getText().toString());
-//                map.put("branch", branchUserET.getText().toString());
-//                map.put("rollno", rollnoUserET.getText().toString());
+                String branch = "";
+                String curr = emailUserET.getText().toString().substring(4,6);
+                switch(curr){
+                    case "01":
+                        branch = "BE";
+                        break;
+                    case "02":
+                        branch = "Civil Engineering";
+                        break;
+                    case "03":
+                        branch = "Chemical Engineering";
+                        break;
+                    case "04":
+                        branch = "Computer Science Engineering";
+                        break;
+                    case "05":
+                        branch = "Electrical Engineering";
+                        break;
+                    case "06":
+                        branch = "Electronics Engineering";
+                        break;
+                    case "07":
+                        branch = "Food Technology";
+                        break;
+                    case "08":
+                        branch = "Information Technology";
+                        break;
+                    case "09":
+                        branch = "Leather Technology";
+                        break;
+                    case "10":
+                        branch = "Mechanical Engineering";
+                        break;
+                    case "11":
+                        branch = "Oil Technology";
+                        break;
+                    case "12":
+                        branch = "Paint And Leather";
+                        break;
+                    case "13":
+                        branch = "Paint Technology";
+                        break;
+                }
+                map.put("branch", branch);
+                map.put("rollno",emailUserET.getText().toString().substring(0,9));
                 map.put("cycleid", "");
                 map.put("role", "student");
                 // post request

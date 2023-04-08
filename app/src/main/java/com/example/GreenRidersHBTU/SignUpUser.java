@@ -4,10 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,6 +29,8 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 
 import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -65,6 +70,13 @@ public class SignUpUser extends AppCompatActivity implements GoogleApiClient.OnC
                 .addApi(Auth.GOOGLE_SIGN_IN_API,gso)
                 .build();
 
+        // to hide keyboard on screen tap
+        findViewById(R.id.screen).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                hideSoftKeyboard(SignUpUser.this);
+            }
+        });
     }
     @Override
     protected void onStart() {
@@ -86,11 +98,11 @@ public class SignUpUser extends AppCompatActivity implements GoogleApiClient.OnC
     private void handleSignInResult(GoogleSignInResult result){
         if(result.isSuccess()){
             GoogleSignInAccount account=result.getSignInAccount();
-            if(account == null || !account.getEmail().contains("@hbtu.ac.in")){
+            if(account == null || account.getEmail().length() < 11 || !account.getEmail().substring(account.getEmail().length()-11).contains("@hbtu.ac.in")){
                 AlertDialog.Builder builder = new AlertDialog.Builder(SignUpUser.this);
                 builder.setTitle("ALERT");
-                builder.setMessage("You Tried Login Using Non-HBTU Email \n 1) Uninstall the app \n 2) Re-install It" +
-                        "\n 3) Make sure that use HBTU-email to SignUp");
+                builder.setMessage("You Tried Signup Using Non-HBTU Email \n 1) Uninstall the app \n 2) Re-install It" +
+                        "\n 3) Make sure that use to SignUp");
                 builder.setCancelable(false);
                 builder.show();
             }else{
@@ -101,6 +113,7 @@ public class SignUpUser extends AppCompatActivity implements GoogleApiClient.OnC
             final EditText passwordSignUpET = (EditText) findViewById(R.id.passwordSignUpET);
 
             String name = "", branch = "";
+
             name = account.getDisplayName();
             rollnoSignUpTV.setText(account.getEmail().substring(0,9));
             nameSignUpTV.setText(name.substring(0, name.length()-31));
@@ -174,16 +187,41 @@ public class SignUpUser extends AppCompatActivity implements GoogleApiClient.OnC
         final TextView rollnoSignUpTV = (TextView) findViewById(R.id.rollNoSignUpTV);
         final TextView emailSignUpET = (TextView) findViewById(R.id.emailSignUpTV);
         final EditText passwordSignUpET = (EditText) findViewById(R.id.passwordSignUpET);
+        final EditText passwordReEnterSignUpET = (EditText) findViewById(R.id.passwordReEnterSignUpET);
 
         addUserLL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                String password = passwordSignUpET.getText().toString();
+                String passwordReEnter = passwordReEnterSignUpET.getText().toString();
+                if(!passwordReEnter.equals(password)){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(SignUpUser.this);
+                    builder.setTitle("Invalid Password");
+                    builder.setMessage("Password does not match");
+                    builder.setCancelable(true);
+                    builder.show();
+                    passwordSignUpET.setText("");
+                    passwordReEnterSignUpET.setText("");
+                    return;
+                }
+                //        make sure password is of atleast length 8 and contains 1 special character
+                if(!isValidPassword(password)){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(SignUpUser.this);
+                    builder.setTitle("Invalid Password");
+                    builder.setMessage("Make sure password is of atleast length 8, contains 1 special character, 1 digit and 1 Capital Letter");
+                    builder.setCancelable(true);
+                    builder.show();
+                    passwordSignUpET.setText("");
+                    passwordReEnterSignUpET.setText("");
+                    return;
+                }
                 Toast.makeText(SignUpUser.this, "Sending Data...",
                         Toast.LENGTH_SHORT).show();
                 HashMap<String, String> map = new HashMap<>();
                 // preparing for post
                 map.put("name", nameSignUpET.getText().toString());
-                map.put("password", passwordSignUpET.getText().toString());
+                map.put("password", password);
                 map.put("email", emailSignUpET.getText().toString());
                 map.put("branch", branchSignUpTV.getText().toString());
                 map.put("rollno", rollnoSignUpTV.getText().toString());
@@ -229,5 +267,27 @@ public class SignUpUser extends AppCompatActivity implements GoogleApiClient.OnC
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    }
+    public static boolean isValidPassword(final String password) {
+
+        Pattern pattern;
+        Matcher matcher;
+        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{4,}$";
+        pattern = Pattern.compile(PASSWORD_PATTERN);
+        matcher = pattern.matcher(password);
+
+        return matcher.matches();
+
+    }
+    public static void hideSoftKeyboard(Activity activity) {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) activity.getSystemService(
+                        Activity.INPUT_METHOD_SERVICE);
+        if(inputMethodManager.isAcceptingText()){
+            inputMethodManager.hideSoftInputFromWindow(
+                    activity.getCurrentFocus().getWindowToken(),
+                    0
+            );
+        }
     }
 }

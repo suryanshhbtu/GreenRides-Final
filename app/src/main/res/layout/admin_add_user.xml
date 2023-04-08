@@ -70,46 +70,10 @@
 
 
     <LinearLayout
-        android:id="@+id/rollnoLL"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/nameLL"
-        android:layout_marginTop="8dp"
-        android:orientation="vertical"
-        >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Enter UserId"
-            android:textColor="@color/headings"
-            android:textSize="13sp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/rollnoUserET"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="sans-serif-light"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            android:hint="Enter UserId"
-            android:textStyle="bold"
-            />
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="15dp"
-            android:background="@color/grey" />
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/emailLL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/rollnoLL"
+        android:layout_below="@+id/nameLL"
         android:layout_marginTop="8dp"
         android:orientation="vertical">
 

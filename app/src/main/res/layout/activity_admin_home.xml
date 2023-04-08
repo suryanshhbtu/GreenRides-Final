@@ -4,8 +4,14 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-tools:context="com.example.GreenRidersHBTU.Admin.AdminHome"
-android:padding="26dp">
+tools:context="com.example.GreenRidersHBTU.Admin.AdminHome">
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="26dp">
     <LinearLayout
         android:id="@+id/addImage"
         android:layout_width="match_parent"
@@ -22,7 +28,6 @@ android:padding="26dp">
             android:src="@drawable/profile" />
 
     </LinearLayout>
-
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
@@ -195,24 +200,46 @@ android:padding="26dp">
             android:text="Delete Cycle"
             android:textSize="24dp" />
     </LinearLayout>
-    <LinearLayout
-        android:id="@+id/realTime"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/deleteCycle"
-        android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/realTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/deleteCycle"
+                android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/realtime_btn"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="8dp"
-            android:text="Show Realtime Rented Cycles"
-            android:background="@drawable/rounded_edittext"
-            android:textSize="24dp" />
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/realtime_btn"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="Show Realtime Rented Cycles"
+                    android:background="@drawable/rounded_edittext"
+                    android:textSize="24dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/deleteYearWiseLL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/realTime"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/delete_Yearwise_btn"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="Delete Year Wise Students"
+                    android:background="@drawable/rounded_edittext"
+                    android:textSize="24dp" />
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

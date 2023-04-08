@@ -15,7 +15,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15sp"
         android:fontFamily="sans-serif-light"
-        android:text="Add Cycle Credentials"
+        android:text="Enter Cycle Credentials"
         android:textSize="32sp"
         android:textStyle="bold" />
 
@@ -30,7 +30,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Scanned Id Will be Displayed Here. "
+                android:text="Scanned CycleId Will be Displayed Here. "
                 android:textColor="@color/headings"
                 android:textSize="13sp"
                 android:textStyle="bold" />
@@ -42,6 +42,7 @@
                 android:layout_height="match_parent"
                 android:fontFamily="sans-serif-light"
                 android:textColor="#000000"
+                android:hint="Scan To Load"
                 android:textSize="18sp" />
 
             <View

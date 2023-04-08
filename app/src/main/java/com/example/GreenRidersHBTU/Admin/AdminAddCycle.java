@@ -32,21 +32,17 @@ public class AdminAddCycle extends AppCompatActivity {
 
     private Retrofit retrofit;  // global variable of retrofit class
     private RetrofitInterface retrofitInterface; // global variable of retrofit Interface
-
-
     // getting baseUrl of Server
     private BaseUrl baseUrl = new BaseUrl();
     private String BASE_URL = baseUrl.getBaseUrl();
-
     public static  TextView qrTV; //  cycle QR TextView -> store value of scanned QR
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_add_cycle);
 
-//        // back button to close DeleteCycle
+//        // back button to close AddCycle
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         MainActivity.addCycle = true;
         qrTV = (TextView)  findViewById(R.id.qrTV);
         findViewById(R.id.QRLL).setOnClickListener(new View.OnClickListener() {
@@ -54,8 +50,6 @@ public class AdminAddCycle extends AppCompatActivity {
             public void onClick(View view) {
 //                Toast.makeText(LoggedUserActivity.this, "Button Dababa",
 //                        Toast.LENGTH_LONG).show();
-
-
                 Intent intent = new Intent(getApplicationContext(), ScannerViewAddCycle.class);
                 startActivity(intent);// Activity is started with requestCode 2
             }
@@ -96,6 +90,7 @@ public class AdminAddCycle extends AppCompatActivity {
                 map.put("cycleid", qrTV.getText().toString());
                 map.put("status", "");
                 map.put("stdid", "");
+                map.put("stdname", "");
                 map.put("email", "");
                 // post request
                 Call<Void> call = retrofitInterface.executeCycleSignup("Bearer "+ MainActivity.AUTH_TOKEN,map);
@@ -107,7 +102,7 @@ public class AdminAddCycle extends AppCompatActivity {
                         if (response.code() == 200) {
                             Toast.makeText(AdminAddCycle.this, "Cycles Added Successfully",
                                     Toast.LENGTH_LONG).show();
-                            qrTV.setText("Scan To Add Another Cycle");
+                            qrTV.setText("");
 
                         } else{
                             Toast.makeText(AdminAddCycle.this, "Wrong Credentials",

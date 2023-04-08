@@ -1,6 +1,7 @@
 package com.example.GreenRidersHBTU.RetrofitApiCalls;
 
 import com.example.GreenRidersHBTU.Model.LoginResult;
+import com.example.GreenRidersHBTU.Model.Student;
 import com.example.GreenRidersHBTU.Scanners.scannerView;
 import com.example.GreenRidersHBTU.Model.Cycle;
 
@@ -74,4 +75,7 @@ public interface RetrofitInterface {
     Call<List<Cycle>> getRentedCycle(@Header("Authorization") String AUTH_KEY);
 //    @PATCH("cycles/{cycleid}")
 //    Call<Cycle> getCycle(@Path("cycleid") String id);
+
+    @DELETE("/users/byyear/{year}")
+    Call<List<Student>> deleteYearWise(@Header("Authorization") String AUTH_KEY,@Path("year") String year);
 }
