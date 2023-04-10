@@ -1,5 +1,8 @@
 package com.example.GreenRidersHBTU.Util;
 
+import static com.example.GreenRidersHBTU.SignUpUser.isValidPassword;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -16,6 +19,7 @@ import com.example.GreenRidersHBTU.MainActivity;
 import com.example.GreenRidersHBTU.Model.BaseUrl;
 import com.example.GreenRidersHBTU.R;
 import com.example.GreenRidersHBTU.RetrofitApiCalls.RetrofitInterface;
+import com.example.GreenRidersHBTU.SignUpUser;
 import com.google.android.gms.auth.api.Auth;
 
 import java.util.HashMap;
@@ -32,7 +36,7 @@ public class ChangePassword extends AppCompatActivity {
     private BaseUrl baseUrl = new BaseUrl();
     private String BASE_URL = baseUrl.getBaseUrl();
 
-    TextView changePasswordET;
+    TextView changePasswordET, changeReEnterPasswordET;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +46,7 @@ public class ChangePassword extends AppCompatActivity {
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         changePasswordET = (TextView)  findViewById(R.id.changePasswordET);
+        changeReEnterPasswordET = (TextView)  findViewById(R.id.changeReEnterPasswordET);
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL) // above defined
                 .addConverterFactory(GsonConverterFactory.create()) // json -> javaObject
@@ -62,6 +67,34 @@ public class ChangePassword extends AppCompatActivity {
         changePasswordLL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                String password = changePasswordET.getText().toString();
+                String passwordReEnter = changeReEnterPasswordET.getText().toString();
+                if(!passwordReEnter.equals(password)){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ChangePassword.this);
+                    builder.setTitle("Invalid Password");
+                    builder.setMessage("Password does not match");
+                    builder.setCancelable(true);
+                    builder.show();
+                    changePasswordET.setText("");
+                    changeReEnterPasswordET.setText("");
+                    changePasswordET.setError("Password does not match");
+                    changeReEnterPasswordET.setError("Password does not match");
+                    return;
+                }
+                //        make sure password is of atleast length 8 and contains 1 special character
+                if(!isValidPassword(password)){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ChangePassword.this);
+                    builder.setTitle("Password is too weak");
+                    builder.setMessage("Make sure password is of atleast length 8, contains 1 special character, 1 digit and 1 Capital Letter");
+                    builder.setCancelable(true);
+                    builder.show();
+                    changePasswordET.setText("");
+                    changeReEnterPasswordET.setText("");
+                    changePasswordET.setError("Password is too weak");
+                    changeReEnterPasswordET.setError("Password is too weak");
+                    return;
+                }
                 Toast.makeText(ChangePassword.this, "Sending Data...",
                         Toast.LENGTH_SHORT).show();
                 HashMap<String, String> map = new HashMap<>();
@@ -81,7 +114,7 @@ public class ChangePassword extends AppCompatActivity {
                             editor.clear();
                             editor.apply();
 
-                            Toast.makeText(ChangePassword.this, "Password Changed  Successfully",
+                            Toast.makeText(ChangePassword.this, "Password Changed Successfully, Now Login with new Password",
                                     Toast.LENGTH_LONG).show();
                             changePasswordET.setText("");
                             finishAffinity();

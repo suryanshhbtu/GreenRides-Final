@@ -184,22 +184,29 @@ tools:context="com.example.GreenRidersHBTU.SignUpUser"
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Password : "
+            android:text=" Password : "
             android:textColor="@color/headings"
             android:textSize="13sp"
             android:textStyle="bold" />
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true"
+            >
         <EditText
             android:id="@+id/passwordSignUpET"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="sans-serif-light"
+            android:inputType="textPassword"
             android:textColor="#000000"
             android:textSize="18sp"
             android:hint="Enter Your New Password"
             android:textStyle="bold"
             />
 
+        </com.google.android.material.textfield.TextInputLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -218,11 +225,15 @@ tools:context="com.example.GreenRidersHBTU.SignUpUser"
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Password : "
+            android:text="Re-Password : "
             android:textColor="@color/headings"
             android:textSize="13sp"
             android:textStyle="bold" />
-
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true"
+            >
         <EditText
             android:id="@+id/passwordReEnterSignUpET"
             android:layout_width="match_parent"
@@ -230,11 +241,11 @@ tools:context="com.example.GreenRidersHBTU.SignUpUser"
             android:fontFamily="sans-serif-light"
             android:textColor="#000000"
             android:textSize="18sp"
-            android:hint="Enter Your New Password"
+            android:hint="Re-Enter Your Password"
             android:inputType="textPassword"
             android:textStyle="bold"
             />
-
+        </com.google.android.material.textfield.TextInputLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"

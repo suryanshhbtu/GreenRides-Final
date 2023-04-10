@@ -9,6 +9,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -188,7 +189,6 @@ public class SignUpUser extends AppCompatActivity implements GoogleApiClient.OnC
         final TextView emailSignUpET = (TextView) findViewById(R.id.emailSignUpTV);
         final EditText passwordSignUpET = (EditText) findViewById(R.id.passwordSignUpET);
         final EditText passwordReEnterSignUpET = (EditText) findViewById(R.id.passwordReEnterSignUpET);
-
         addUserLL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -203,17 +203,21 @@ public class SignUpUser extends AppCompatActivity implements GoogleApiClient.OnC
                     builder.show();
                     passwordSignUpET.setText("");
                     passwordReEnterSignUpET.setText("");
+                    passwordSignUpET.setError("Password does not match");
+                    passwordReEnterSignUpET.setError("Password does not match");
                     return;
                 }
                 //        make sure password is of atleast length 8 and contains 1 special character
                 if(!isValidPassword(password)){
                     AlertDialog.Builder builder = new AlertDialog.Builder(SignUpUser.this);
-                    builder.setTitle("Invalid Password");
+                    builder.setTitle("Password is too weak");
                     builder.setMessage("Make sure password is of atleast length 8, contains 1 special character, 1 digit and 1 Capital Letter");
                     builder.setCancelable(true);
                     builder.show();
                     passwordSignUpET.setText("");
                     passwordReEnterSignUpET.setText("");
+                    passwordSignUpET.setError("Password is too weak");
+                    passwordReEnterSignUpET.setError("Password is too weak");
                     return;
                 }
                 Toast.makeText(SignUpUser.this, "Sending Data...",
@@ -235,8 +239,6 @@ public class SignUpUser extends AppCompatActivity implements GoogleApiClient.OnC
                     public void onResponse(Call<Void> call, Response<Void> response) {
 
                         if (response.code() == 201) {
-                            Toast.makeText(SignUpUser.this, "Sign Up Successfully",
-                                    Toast.LENGTH_LONG).show();
                             nameSignUpET.setText("");
                             passwordSignUpET.setText("");
                             emailSignUpET.setText("");
@@ -272,8 +274,12 @@ public class SignUpUser extends AppCompatActivity implements GoogleApiClient.OnC
 
         Pattern pattern;
         Matcher matcher;
-        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{4,}$";
-        pattern = Pattern.compile(PASSWORD_PATTERN);
+        final Pattern PASSWORD_PATTERN = Pattern.compile("^" +
+                "(?=.*[@#$%^&+=])" +     // at least 1 special character
+                "(?=\\S+$)" +            // no white spaces
+                ".{4,}" +                // at least 4 characters
+                "$");
+        pattern = Pattern.compile(PASSWORD_PATTERN.toString());
         matcher = pattern.matcher(password);
 
         return matcher.matches();

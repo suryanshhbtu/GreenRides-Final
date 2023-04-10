@@ -69,7 +69,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     public static final String fileName = "login";
     public static final String Email = "email";
     public static final String Password = "password";
-
     private Retrofit retrofit;  // global variable of retrofit class
     private RetrofitInterface retrofitInterface; // global variable of retrofit Interface
     private BaseUrl baseUrl = new BaseUrl();
@@ -111,18 +110,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         sharedPreferences = getSharedPreferences(fileName, Context.MODE_PRIVATE);
 
 //        final TextView signUp = findViewById(R.id.signup);
-        final CheckBox showPassword = findViewById(R.id.showPassword);
         final EditText passwordET = findViewById(R.id.passwordEditText);
-         showPassword.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-             @Override
-             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                 if(b){
-                     passwordET.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                 }else{
-                     passwordET.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                 }
-             }
-         });
+
          findViewById(R.id.screen).setOnClickListener(new View.OnClickListener(){
              @Override
              public void onClick(View view) {
@@ -334,6 +323,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                         }else{
                             Toast.makeText(MainActivity.this, "Wrong Credentials",
                                     Toast.LENGTH_LONG).show();
+                            passwordEdit.setError("Wrong Password");
                         }
 
                     }
