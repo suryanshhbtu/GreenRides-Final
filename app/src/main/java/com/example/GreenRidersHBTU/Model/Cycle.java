@@ -1,5 +1,5 @@
 package com.example.GreenRidersHBTU.Model;
-
+// CYCLE OBJECT
 public class Cycle {
     String _id;
     String cycleid;

@@ -1,5 +1,5 @@
 package com.example.GreenRidersHBTU.User;
-
+// COMMENTS ADDED
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ShareCompat;
@@ -65,7 +65,6 @@ public class LoggedUserActivity extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-
         _id = intent.getStringExtra("_id");
         name = intent.getStringExtra("name");
         String rollno = intent.getStringExtra("rollno");
@@ -90,6 +89,8 @@ public class LoggedUserActivity extends AppCompatActivity {
         scanbtn=(TextView) findViewById(R.id.scanbtn);
 
         rentbtn=(TextView) findViewById(R.id.rentbtn);
+
+//        logic to remove rent button if cycle is already rented to current user
         if(!cycleidTV.getText().equals("Not Rented")){
             scanbtn.setVisibility(View.INVISIBLE);
             scanLL.setVisibility(View.INVISIBLE);
@@ -98,6 +99,7 @@ public class LoggedUserActivity extends AppCompatActivity {
         rentbtn.setVisibility(View.INVISIBLE);
         rentLL.setVisibility(View.INVISIBLE);
 
+//        OPENING SCANNER to scan QR
         scanbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,7 +109,7 @@ public class LoggedUserActivity extends AppCompatActivity {
                 startActivityForResult(intent, 2);// Activity is started with requestCode 2
             }
         });
-
+//      RENT BUTTON logic
         rentbtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -119,13 +121,8 @@ public class LoggedUserActivity extends AppCompatActivity {
 
                 String cycleid = (String) cycleidTV.getText();
 //                Toast.makeText(LoggedUserActivity.this,cycleid, Toast.LENGTH_LONG).show();
-
                 if(!cycleid.equals(""))
                     getCycleHandler(cycleid);
-
-//                if(statusOfCycle)
-
-
             }
         });
 
@@ -155,6 +152,7 @@ public class LoggedUserActivity extends AppCompatActivity {
         finish();
     }
 
+//    GETTING CYCLE STATUS
     private void getCycleHandler(String cycleid) {
 //        Toast.makeText(LoggedUserActivity.this,"get cycle me ghusa", Toast.LENGTH_LONG).show();
         // post request
@@ -296,7 +294,7 @@ public class LoggedUserActivity extends AppCompatActivity {
 
     }
 
-    // Adding Menu
+    // Adding Menu options
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu options from the res/menu/menu_catalog.xml file.

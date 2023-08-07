@@ -1,5 +1,5 @@
 package com.example.GreenRidersHBTU.Util;
-
+// COMMENTS ADDED
 import static com.example.GreenRidersHBTU.SignUpUser.isValidPassword;
 
 import androidx.appcompat.app.AlertDialog;
@@ -47,10 +47,12 @@ public class ChangePassword extends AppCompatActivity {
 
         changePasswordET = (TextView)  findViewById(R.id.changePasswordET);
         changeReEnterPasswordET = (TextView)  findViewById(R.id.changeReEnterPasswordET);
+//        BUILDING RETROFIT OBJECT
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL) // above defined
                 .addConverterFactory(GsonConverterFactory.create()) // json -> javaObject
                 .build();
+
 
         retrofitInterface = retrofit.create(RetrofitInterface.class); // instantinsing
         changePasswordHandler();
@@ -62,6 +64,7 @@ public class ChangePassword extends AppCompatActivity {
         finish(); // close this activity as oppose to navigating up
         return false;
     }
+//    PASSWORD CHANGE HANDLER
     private void changePasswordHandler() {
         final LinearLayout changePasswordLL = (LinearLayout) findViewById(R.id.changePasswordLL);
         changePasswordLL.setOnClickListener(new View.OnClickListener() {

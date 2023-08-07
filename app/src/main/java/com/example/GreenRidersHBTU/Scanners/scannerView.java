@@ -1,5 +1,5 @@
 package com.example.GreenRidersHBTU.Scanners;
-
+//  COMMENTS ADDED
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
@@ -45,7 +45,7 @@ public class scannerView extends AppCompatActivity implements ZXingScannerView.R
             scannerView=new ZXingScannerView(this);
             setContentView(scannerView);
             // back button to close scanner
-            this.getSupportActionBar().setDisplayHomeAsUpEnabled(true); // work for back button <- int tool bar, onSupportNavigateUp()
+            this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);// work for back button <- int tool bar, onSupportNavigateUp()
 
             Dexter.withContext(getApplicationContext())
                     .withPermission(Manifest.permission.CAMERA)
@@ -55,12 +55,10 @@ public class scannerView extends AppCompatActivity implements ZXingScannerView.R
 
                             scannerView.startCamera();
                         }
-
                         @Override
                         public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
-
+                            Toast.makeText(scannerView.this, "Camera Access Denied", Toast.LENGTH_LONG).show();
                         }
-
                         @Override
                         public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
                             permissionToken.continuePermissionRequest();
@@ -73,26 +71,24 @@ public class scannerView extends AppCompatActivity implements ZXingScannerView.R
             finish(); // close this activity as oppose to navigating up
             return false;
         }
+
+
+        // here we get the value of scanned QR
         @Override
         public void handleResult(Result rawResult) {
             if(!MainActivity.role.equals("guard")){
-
                 LoggedUserActivity.cycleidTV.setText(rawResult.getText());
             }else if(!MainActivity.role.equals("student")){       // student kia hai
                 LoggedGuardActivity.cycleidTV.setText(rawResult.getText());
             }
-//            if(MainActivity.addCycle){
-
-                Toast.makeText(com.example.GreenRidersHBTU.Scanners.scannerView.this,rawResult.getText(), Toast.LENGTH_SHORT).show();
-//                AdminAddCycle.qrTV.setText(rawResult.getText());
-//                MainActivity.addCycle = false;
-//            }
-
+            Toast.makeText(com.example.GreenRidersHBTU.Scanners.scannerView.this,rawResult.getText(), Toast.LENGTH_SHORT).show();
             cycleid = rawResult.getText();
 //            getCycleHandler(cycleid);
             onBackPressed();
         }
 
+        // NOT IN USE
+        /*
         private void getCycleHandler(String cycleid) {
             Toast.makeText(com.example.GreenRidersHBTU.Scanners.scannerView.this,"get cycle me ghusa", Toast.LENGTH_LONG).show();
             // post request
@@ -140,7 +136,9 @@ public class scannerView extends AppCompatActivity implements ZXingScannerView.R
             });
 
         }
+        */
 
+        // CLOSING CAMERA ON BACK PRESSED
         @Override
         public void onBackPressed() {
             Intent intent=new Intent();
@@ -149,12 +147,14 @@ public class scannerView extends AppCompatActivity implements ZXingScannerView.R
             super.onBackPressed();
         }
 
+        // stopping camera when app is running in background
         @Override
         protected void onPause() {
             super.onPause();
             scannerView.stopCamera();
         }
 
+        // starting camera when app is again on Foreground
         @Override
         protected void onResume() {
             super.onResume();

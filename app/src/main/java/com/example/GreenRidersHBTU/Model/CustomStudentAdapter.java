@@ -1,5 +1,5 @@
 package com.example.GreenRidersHBTU.Model;
-
+// CUSTOM ADAPTER to show realtime status of rented cycles
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;

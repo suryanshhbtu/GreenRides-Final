@@ -2,7 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.GreenRidersHBTU">
 
+    <!-- Ensure that phone without camera can also install the app, default : true -->
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
+    <!-- INTERNET PERMISSION -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- CAMERA PERMISSION -->
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
@@ -12,6 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+
+        <!-- All Activities -->
         <activity
             android:name=".Admin.AdminDeleteYearWise"
             android:exported="false" />
@@ -58,12 +67,13 @@
             android:name=".User.LoggedUserActivity"
             android:exported="false" />
         <activity android:name=".Scanners.scannerView" />
+
+        <!-- This Is MAIN ACTIVITY, from here the app starts-->
         <activity
             android:name=".MainActivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -1,18 +1,18 @@
 package com.example.GreenRidersHBTU.Model;
 
 public class Student {
-
-//    {
-//        "_id": "642f12f26993b0c7248a9a35",
-//            "email": "200106069@hbtu.ac.in",
-//            "password": "$2b$10$5LjJhh3EhBDsb5oubvYDFuNsRncP/SnPcEa6AezinyUzCDzomEXS.",
-//            "name": "SURYANSH SRIVASTAVA ",
-//            "rollno": "200106069",
-//            "branch": "Electronics Engineering",
-//            "cycleid": "HBTUCycle110",
-//            "role": "student",
-//            "__v": 0
-//    }
+// DUMMY STUDENT OBJECT AS PER MONGODB SCHEMA
+   /* {
+        "_id": "642f12f26993b0c7248a9a35",
+            "email": "200106069@hbtu.ac.in",
+            "password": "$2b$10$5LjJhh3EhBDsb5oubvYDFuNsRncP/SnPcEa6AezinyUzCDzomEXS.",
+            "name": "SURYANSH SRIVASTAVA ",
+            "rollno": "200106069",
+            "branch": "Electronics Engineering",
+            "cycleid": "HBTUCycle110",
+            "role": "student",
+            "__v": 0
+    }*/
     String name, branch, email, rollno, cycleid;
 
     public Student(String stdName, String stdBranch, String stdEmail, String stdRollNo, String stdCycleId) {

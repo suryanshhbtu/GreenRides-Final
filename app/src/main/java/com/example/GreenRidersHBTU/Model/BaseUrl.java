@@ -1,7 +1,8 @@
 package com.example.GreenRidersHBTU.Model;
-
+// encapsulating the url
 public class BaseUrl {
-    private String baseUrl = "https://cycle-modified-api.azurewebsites.net/";//https://cycle-api.azurewebsites.net/";
+//    http://app.hbtu.ac.in:8080/
+    private String baseUrl = "https://app.hbtu.ac.in:8080";
 //    https://app.hbtu.ac.in/
 
     public String getBaseUrl() {

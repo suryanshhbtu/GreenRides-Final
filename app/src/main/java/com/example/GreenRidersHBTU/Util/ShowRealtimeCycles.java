@@ -1,5 +1,5 @@
 package com.example.GreenRidersHBTU.Util;
-
+// COMMENTS ADDED
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
@@ -75,9 +75,11 @@ public class ShowRealtimeCycles extends AppCompatActivity {
         finish(); // close this activity as oppose to navigating up
         return false;
     }
+
+//    FETCHING RENTED CYCLES -> GET REQUEST
     private void getRentedCycle() {
 
-//        // post request
+//        // get request
         Call<List<Cycle>> call = retrofitInterface.getRentedCycle("Bearer "+ MainActivity.AUTH_TOKEN);
         // execute http request
         call.enqueue(new Callback<List<Cycle>>() {
@@ -98,16 +100,6 @@ public class ShowRealtimeCycles extends AppCompatActivity {
                        }
                     CustomStudentAdapter customStudentAdapter =  new CustomStudentAdapter(getApplicationContext(), stdList);
                     l.setAdapter(customStudentAdapter);
-
-//                    arr= new ArrayAdapter<String>(ShowRealtimeCycles.this,R.layout.support_simple_spinner_dropdown_item,
-//                            cycles);
-//                    l.setAdapter(arr);
-
-
-
-//                    WordAdapter family=new WordAdapter(ShowRealtimeCycles.this,result);
-//                    ListView listView=(ListView)findViewById(R.id.list);
-//                    listView.setAdapter(family);
                 } else if (response.code() == 404) {
                     Toast.makeText(ShowRealtimeCycles.this, "Wrong Credentials",
                             Toast.LENGTH_LONG).show();
@@ -116,7 +108,6 @@ public class ShowRealtimeCycles extends AppCompatActivity {
                             Toast.LENGTH_LONG).show();
                 }
             }
-
             @Override
             public void onFailure(Call<List<Cycle>> call, Throwable t) {
                 Toast.makeText(ShowRealtimeCycles.this, t.getMessage(),
@@ -126,6 +117,7 @@ public class ShowRealtimeCycles extends AppCompatActivity {
 
     }
 
+    // ADDING MENU OPTION TO SHARE LIST
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu options from the res/menu/menu_catalog.xml file.
         // This adds menu items to the app bar.

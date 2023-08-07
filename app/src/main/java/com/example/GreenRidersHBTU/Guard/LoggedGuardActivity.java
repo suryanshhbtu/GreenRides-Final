@@ -134,6 +134,7 @@ public class LoggedGuardActivity extends AppCompatActivity {
         // check if the request code is same as what is passed  here it is 2
         if(requestCode==2)
         {
+//            RETRUNING FROM SCANNERVIEW since reqestCode is 2 -> logic for visibility of button
             if(!cycleidTV.getText().equals("Scan To Remove From Rent.")){
                 scanbtn.setVisibility(View.INVISIBLE);
                 scanLL.setVisibility(View.INVISIBLE);

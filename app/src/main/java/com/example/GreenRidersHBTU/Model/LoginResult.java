@@ -1,7 +1,7 @@
 package com.example.GreenRidersHBTU.Model;
 
 import com.google.gson.annotations.SerializedName;
-
+// LOGIN RESULT OBJECT
 public class LoginResult {
 
 //    @SerializedName("message") // key hai message

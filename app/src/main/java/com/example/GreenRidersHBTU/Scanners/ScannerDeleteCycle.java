@@ -1,5 +1,5 @@
 package com.example.GreenRidersHBTU.Scanners;
-
+//  COMMENTS ADDED in @sacnnerView
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
@@ -46,6 +46,7 @@ public class ScannerDeleteCycle extends AppCompatActivity implements ZXingScanne
 
                     @Override
                     public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
+                        Toast.makeText(ScannerDeleteCycle.this, "Camera Access Denied", Toast.LENGTH_LONG).show();
 
                     }
 

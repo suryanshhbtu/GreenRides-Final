@@ -1,5 +1,5 @@
 package com.example.GreenRidersHBTU;
-
+// COMMENTS ADDED
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,7 +43,6 @@ public class SignUpUser extends AppCompatActivity implements GoogleApiClient.OnC
     private GoogleApiClient googleApiClient;
     private GoogleSignInOptions gso;
 
-
     private Retrofit retrofit;  // global variable of retrofit class
     private RetrofitInterface retrofitInterface; // global variable of retrofit Interface
     private BaseUrl baseUrl = new BaseUrl();
@@ -81,6 +80,7 @@ public class SignUpUser extends AppCompatActivity implements GoogleApiClient.OnC
     }
     @Override
     protected void onStart() {
+        // signin using goolge
         super.onStart();
         OptionalPendingResult<GoogleSignInResult> opr= Auth.GoogleSignInApi.silentSignIn(googleApiClient);
         if(opr.isDone()){
@@ -96,6 +96,7 @@ public class SignUpUser extends AppCompatActivity implements GoogleApiClient.OnC
         }
     }
 
+    // HANDLING SIGNIN
     private void handleSignInResult(GoogleSignInResult result){
         if(result.isSuccess()){
             GoogleSignInAccount account=result.getSignInAccount();
@@ -124,6 +125,7 @@ public class SignUpUser extends AppCompatActivity implements GoogleApiClient.OnC
             Toast.makeText(SignUpUser.this, "Enter Your New Password",
                     Toast.LENGTH_LONG).show();
             String curr = account.getEmail().substring(4,6);
+            // GETTING BRANCH -> can be called from CYCLE MODEL
             switch(curr){
                 case "01":
                     branch = "BE";
@@ -166,7 +168,6 @@ public class SignUpUser extends AppCompatActivity implements GoogleApiClient.OnC
                     break;
             }
             branchSignUpTV.setText(branch);
-
             addUserHandler();
         }}
     }
@@ -179,9 +180,8 @@ public class SignUpUser extends AppCompatActivity implements GoogleApiClient.OnC
         this.startActivity(intent);
     }
 
+    // USED BY handleSignInResult() -> actual signup Happens here
     private void addUserHandler() {
-
-
         LinearLayout addUserLL = (LinearLayout) findViewById(R.id.signUpLL);
         final TextView nameSignUpET = (TextView) findViewById(R.id.nameSignUpTV);
         final TextView branchSignUpTV = (TextView) findViewById(R.id.branchSignUpTV);
@@ -270,6 +270,8 @@ public class SignUpUser extends AppCompatActivity implements GoogleApiClient.OnC
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
+
+//    checking that password is strong
     public static boolean isValidPassword(final String password) {
 
         Pattern pattern;
@@ -285,6 +287,8 @@ public class SignUpUser extends AppCompatActivity implements GoogleApiClient.OnC
         return matcher.matches();
 
     }
+
+//    screen tap keyboard close
     public static void hideSoftKeyboard(Activity activity) {
         InputMethodManager inputMethodManager =
                 (InputMethodManager) activity.getSystemService(
